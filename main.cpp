@@ -1,6 +1,7 @@
 //COMSC-210 | Lab 12 | Akashdeep Singh
 
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 const int SIZE = 7;  
@@ -9,19 +10,19 @@ const int INSERT_VALUE = 10000;
 
 struct Node {
     float value;
-    Node *next;
+    Node* next;
 };
 
 // adding required function prototypes 
-void addFront(Node *&, float);
-void addTail(Node *&, float);
-void deleteNode(Node *&, int);
-void insertNode(Node *&, int, float);
-void deleteList(Node *&);
-void output(Node *);
+void addFront(Node*&, float);
+void addTail(Node*&, float);
+void deleteNode(Node*&, int);
+void insertNode(Node*&, int, float);
+void deleteList(Node*&);
+void output(Node*);
 
 int main() {
-    Node *head = nullptr;
+    Node* head = nullptr;
     int entry;
 
     // create a linked list with random values
@@ -62,7 +63,7 @@ int main() {
 //returns: nothing 
 void addFront(Node *& head, float value)
 {
-    Node * newNode = new Node;
+    Node* newNode = new Node;
 
     newNode->value = value;
     newNode->next = head;
@@ -74,9 +75,9 @@ void addFront(Node *& head, float value)
 //arguments: head pointer reference, value to insert 
 //returns: nothing 
 
-void addTail(Node *& head, float value)
+void addTail(Node*& head, float value)
 {
-    Node * newNode = new Node;
+    Node* newNode = new Node;
     newNode->value = value;
     newNode->next = nullptr;
 
@@ -85,7 +86,7 @@ void addTail(Node *& head, float value)
         return;
     }
 
-    Node * current = head;
+    Node* current = head;
 
     while (current->next)
         current = current->next;
@@ -98,13 +99,13 @@ void addTail(Node *& head, float value)
 // arguments: head pointer reference, position to delete
 //returns: nothing 
 
-void deleteNode(Node *& head, int position)
+void deleteNode(Node*& head, int position)
 {
     if (!head)
         return;
 
-    Node * current = head;
-    Node * previous = nullptr;
+    Node* current = head;
+    Node* previous = nullptr;
 
     if (position == 1) {
         head = current->next;
@@ -126,9 +127,9 @@ void deleteNode(Node *& head, int position)
 //insterNode() inserts a node after a given position
 //arguments: head pointer reference, position, value
 
-void insertNode(Node *& head, int position, float value)
+void insertNode(Node*& head, int position, float value)
 {
-    Node * current = head;
+    Node* current = head;
 
     for (int i = 1; current && i < position; i++)
         current = current->next;
@@ -136,9 +137,9 @@ void insertNode(Node *& head, int position, float value)
     if (!current)
         return;
 
-    Node * newNode = new Node;
+    Node* newNode = new Node;
 
-    newNode->value = new Node;
+    newNode->value = value;
     newNode->next = current->next;
 
     current->next = newNode;
@@ -148,15 +149,37 @@ void insertNode(Node *& head, int position, float value)
 //arguments: head pointer reference
 //returns nothing 
 
-void deleteList(Node *& head)
+void deleteList(Node*& head)
 {
-    Node * current = head;
+    Node* current = head;
 
     while (current) {
-        Node * temp = current;
+        Node* temp = current;
         current = current->next;
         delete temp;
     }
 
     head = nullptr;
+}
+
+//output() prints the linked list
+//arguemnts: head pointer 
+//returns: nothing
+
+void output(Node* head)
+{
+    if (!head) {
+        cout << "Empty list.\n\n";
+        return;
+    }
+
+    int count = 1;
+    Node* current = head;
+
+    while (current) {
+        cout << "[" << count++ << "] " << current->value << endl;
+        current = current->next;
+    }
+
+    cout << endl;
 }
